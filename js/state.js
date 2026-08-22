@@ -306,12 +306,22 @@ export const DEFAULT_REQUESTS = [
   }
 ];
 
+const STORAGE_KEY_REQUESTS = 'siantar_top_leave_requests';
+const STORAGE_KEY_EMPLOYEES = 'siantar_top_employees';
+const STORAGE_KEY_ROLE = 'siantar_top_active_role';
+const STORAGE_KEY_CURRENT_EMP = 'siantar_top_current_employee';
+const STORAGE_KEY_AUTH = 'siantar_top_auth_status';
+
 class AppState {
   constructor() {
     this.init();
   }
 
   init() {
+    // Check if user is logged in
+    const authStatus = localStorage.getItem(STORAGE_KEY_AUTH);
+    this.isLoggedIn = authStatus === 'true';
+
     // Load active role
     const savedRole = localStorage.getItem(STORAGE_KEY_ROLE);
     this.currentRole = savedRole || 'Karyawan'; // 'Karyawan' | 'Supervisor' | 'HRD'
@@ -320,12 +330,17 @@ class AppState {
     const savedEmployees = localStorage.getItem(STORAGE_KEY_EMPLOYEES);
     this.employees = savedEmployees ? JSON.parse(savedEmployees) : [...DEFAULT_EMPLOYEES];
 
+    // Load saved current employee id if available
+    const savedEmpId = localStorage.getItem(STORAGE_KEY_CURRENT_EMP);
+    if (savedEmpId) {
+      this.currentEmployee = this.employees.find(e => e.id === savedEmpId) || this.employees[0];
+    } else {
+      this.updateCurrentEmployeeForRole();
+    }
+
     // Load requests
     const savedRequests = localStorage.getItem(STORAGE_KEY_REQUESTS);
     this.requests = savedRequests ? JSON.parse(savedRequests) : [...DEFAULT_REQUESTS];
-
-    // Set current active employee (Budi Santoso for Karyawan, Hendra for SPV, Dewi for HRD)
-    this.updateCurrentEmployeeForRole();
 
     // Listeners for reactive updates
     this.listeners = [];
@@ -341,10 +356,49 @@ class AppState {
     }
   }
 
+  login(identifier, password) {
+    const cleanId = (identifier || '').trim().toLowerCase();
+    const foundEmp = this.employees.find(e => 
+      e.nik.toLowerCase() === cleanId || 
+      e.email.toLowerCase() === cleanId || 
+      e.id.toLowerCase() === cleanId ||
+      e.name.toLowerCase().includes(cleanId)
+    );
+
+    if (!foundEmp) {
+      return { success: false, message: 'Nomor Induk Karyawan (NIK) atau Email tidak terdaftar dalam sistem PT Siantar Top Tbk.' };
+    }
+
+    // Default password check: accept '123456' or NIK or any non-empty string for demo
+    if (password && password.length < 4) {
+      return { success: false, message: 'Password minimal 4 karakter (Gunakan demo: 123456).' };
+    }
+
+    this.isLoggedIn = true;
+    this.currentEmployee = foundEmp;
+    this.currentRole = foundEmp.role;
+
+    localStorage.setItem(STORAGE_KEY_AUTH, 'true');
+    localStorage.setItem(STORAGE_KEY_CURRENT_EMP, foundEmp.id);
+    localStorage.setItem(STORAGE_KEY_ROLE, foundEmp.role);
+
+    this.notify();
+    return { success: true, employee: foundEmp };
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    localStorage.removeItem(STORAGE_KEY_AUTH);
+    this.notify();
+  }
+
   setRole(newRole) {
     this.currentRole = newRole;
     localStorage.setItem(STORAGE_KEY_ROLE, newRole);
     this.updateCurrentEmployeeForRole();
+    if (this.currentEmployee) {
+      localStorage.setItem(STORAGE_KEY_CURRENT_EMP, this.currentEmployee.id);
+    }
     this.notify();
   }
 

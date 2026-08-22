@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>E-Izin PT Siantar Top Tbk | Portal Perizinan & Cuti Karyawan Terpadu</title>
-  <meta name="description" content="Sistem Informasi Manajemen Perizinan dan Cuti Karyawan Mandiri PT Siantar Top Tbk. Layanan pengajuan cuti tahunan, sakit, dispensasi pabrik, dan verifikasi digital.">
+  <meta name="description"
+    content="Sistem Informasi Manajemen Perizinan dan Cuti Karyawan Mandiri PT Siantar Top Tbk. Layanan pengajuan cuti tahunan, sakit, dispensasi pabrik, dan verifikasi digital.">
 
   <!-- Favicon / Brand Icon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23d32f2f'/><text x='50%' y='65%' font-family='sans-serif' font-weight='800' font-size='50' fill='white' text-anchor='middle'>ST</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23d32f2f'/><text x='50%' y='65%' font-family='sans-serif' font-weight='800' font-size='50' fill='white' text-anchor='middle'>ST</text></svg>">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/main.css">
@@ -19,16 +22,181 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
 
-  <div class="app-container">
+  <!-- ==========================================================================
+       HALAMAN LOGIN PORTAL PERIZINAN PT SIANTAR TOP TBK
+       ========================================================================== -->
+  <div class="login-screen-wrapper" id="login-screen">
+    <!-- Panel Kiri: Hero Banner & Informasi Perusahaan -->
+    <div class="login-hero-panel">
+      <div class="hero-brand-top">
+        <div class="hero-logo-box">
+          <svg width="34" height="34" viewBox="0 0 100 100" fill="none">
+            <rect width="100" height="100" rx="22" fill="#d32f2f"/>
+            <path d="M25 35 C 25 25, 45 22, 60 25 C 75 28, 75 42, 60 48 C 45 54, 30 58, 30 72 C 30 84, 55 85, 75 75" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none"/>
+            <circle cx="75" cy="28" r="6" fill="#fbbf24"/>
+          </svg>
+        </div>
+        <div>
+          <div class="hero-brand-title">PT SIANTAR TOP Tbk</div>
+          <div class="hero-brand-tagline">High Quality Taste • Est. 1972</div>
+        </div>
+      </div>
+
+      <div class="hero-main-content">
+        <div class="hero-badge-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Sistem Portal Internal Karyawan
+        </div>
+        <h1 class="hero-headline">Portal Perizinan & Cuti Terpadu</h1>
+        <p class="hero-subheadline">
+          Layanan mandiri karyawan untuk pengajuan cuti tahunan, izin sakit, dispensasi operasional lini pabrik, serta pelacakan otorisasi digital secara transparan.
+        </p>
+
+        <div class="hero-features-list">
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">✓</div>
+            <span>Pengajuan cuti & sakit tanpa formulir kertas (Paperless)</span>
+          </div>
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">✓</div>
+            <span>Tanda tangan digital (*E-Signature*) & bukti dokter online</span>
+          </div>
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">✓</div>
+            <span>Penerbitan surat izin resmi berstempel & ber-QR Code</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-footer-chips">
+        <span style="font-size: 0.72rem; color: #cbd5e1; font-weight: 700; text-transform: uppercase;">Divisi Produk:</span>
+        <span class="product-chip">French Fries 2000</span>
+        <span class="product-chip">Goriorio</span>
+        <span class="product-chip">Tic Tic</span>
+        <span class="product-chip">Mie Gemez</span>
+        <span class="product-chip">Spix Noodle</span>
+      </div>
+    </div>
+
+    <!-- Panel Kanan: Form Login Interaktif -->
+    <div class="login-form-panel">
+      <div class="login-card">
+        <div class="login-card-header">
+          <h2 class="login-greeting">Selamat Datang</h2>
+          <p class="login-subgreeting">Masukkan NIK atau Email Karyawan Anda untuk masuk ke sistem.</p>
+        </div>
+
+        <form id="form-login" class="login-form">
+          <!-- Input NIK / Identitas -->
+          <div class="form-group">
+            <label class="form-label" for="login-identifier">Nomor Induk Karyawan (NIK) / Email <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </span>
+              <input type="text" id="login-identifier" class="input-control-custom" placeholder="Contoh: ST-2024-0891" required autocomplete="username" value="ST-2024-0891">
+            </div>
+          </div>
+
+          <!-- Input Password -->
+          <div class="form-group">
+            <label class="form-label" for="login-password">Kata Sandi (Password) <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </span>
+              <input type="password" id="login-password" class="input-control-custom" placeholder="Masukkan password Anda" required autocomplete="current-password" value="123456">
+              <button type="button" class="password-toggle-btn" id="btn-toggle-password" title="Lihat/Sembunyikan Password">
+                <svg id="pass-icon-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Opsi Tambahan -->
+          <div class="login-helper-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="remember-me" checked>
+              <span>Ingat saya di perangkat ini</span>
+            </label>
+            <a href="javascript:void(0)" id="link-forgot-pass" class="forgot-link">Lupa Password?</a>
+          </div>
+
+          <!-- Tombol Submit Login -->
+          <button type="submit" class="btn btn-primary btn-login-submit" id="btn-submit-login">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+            Masuk ke Portal
+          </button>
+        </form>
+
+        <!-- Quick Demo Login Chips -->
+        <div class="quick-demo-section">
+          <div class="quick-demo-title">Pilih Akun Demo Simulasi (1-Klik)</div>
+          <div class="quick-demo-grid">
+            <!-- Akun Karyawan -->
+            <div class="demo-account-btn" data-nik="ST-2024-0891" data-role="Karyawan">
+              <div class="demo-account-info">
+                <div class="demo-avatar">B</div>
+                <div>
+                  <div class="demo-name">Budi Santoso</div>
+                  <div class="demo-role-tag">Karyawan • Operator Produksi Biskuit</div>
+                </div>
+              </div>
+              <span class="demo-badge-click">Masuk ▶</span>
+            </div>
+
+            <!-- Akun Supervisor -->
+            <div class="demo-account-btn" data-nik="ST-2021-0118" data-role="Supervisor">
+              <div class="demo-account-info">
+                <div class="demo-avatar spv">H</div>
+                <div>
+                  <div class="demo-name">Hendra Wijaya, S.T.</div>
+                  <div class="demo-role-tag">Supervisor • Kepala Bagian Produksi</div>
+                </div>
+              </div>
+              <span class="demo-badge-click">Masuk ▶</span>
+            </div>
+
+            <!-- Akun HRD -->
+            <div class="demo-account-btn" data-nik="ST-2020-0045" data-role="HRD">
+              <div class="demo-account-info">
+                <div class="demo-avatar hrd">D</div>
+                <div>
+                  <div class="demo-name">Dewi Lestari, S.Psi.</div>
+                  <div class="demo-role-tag">HRD • Personnel & GA Manager</div>
+                </div>
+              </div>
+              <span class="demo-badge-click">Masuk ▶</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="login-security-footer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Koneksi Terenkripsi SSL 256-Bit PT Siantar Top Tbk
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN APP CONTAINER (DASHBOARD & MODUL E-IZIN)
+       ========================================================================== -->
+  <div class="app-container" id="app-container">
     <!-- Backdrop for Mobile Sidebar -->
     <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
     <!-- Sidebar Navigation -->
     <aside class="sidebar" id="app-sidebar">
       <div class="sidebar-header">
-        <div class="brand-badge">ST</div>
+        <div class="brand-badge">
+          <svg width="26" height="26" viewBox="0 0 100 100" fill="none">
+            <path d="M25 35 C 25 25, 45 22, 60 25 C 75 28, 75 42, 60 48 C 45 54, 30 58, 30 72 C 30 84, 55 85, 75 75" stroke="#ffffff" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <circle cx="75" cy="28" r="7" fill="#fbbf24"/>
+          </svg>
+        </div>
         <div class="brand-info">
           <span class="brand-name">SIANTAR TOP</span>
           <span class="brand-sub">E-IZIN PORTAL</span>
@@ -78,12 +246,17 @@
       </nav>
 
       <div class="sidebar-footer">
-        <div class="user-quick-profile">
-          <div class="user-avatar" id="sidebar-user-avatar">B</div>
-          <div class="user-details">
-            <span class="user-name" id="sidebar-user-name">Budi Santoso</span>
-            <span class="user-role-label" id="sidebar-user-role">Karyawan (Operator)</span>
+        <div class="user-quick-profile" style="justify-content: space-between; width: 100%;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden;">
+            <div class="user-avatar" id="sidebar-user-avatar">B</div>
+            <div class="user-details">
+              <span class="user-name" id="sidebar-user-name">Budi Santoso</span>
+              <span class="user-role-label" id="sidebar-user-role">Karyawan (Operator)</span>
+            </div>
           </div>
+          <button class="icon-button" id="btn-sidebar-logout" title="Keluar dari Akun" style="width: 32px; height: 32px; flex-shrink: 0; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); color: #fff;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          </button>
         </div>
       </div>
     </aside>
@@ -130,6 +303,11 @@
           <button class="icon-button" id="btn-reset-state" title="Reset Data Awal Simulasi">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
           </button>
+
+          <!-- Logout Button in Header -->
+          <button class="icon-button" id="btn-header-logout" title="Keluar (Logout)" style="color: var(--brand-primary);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          </button>
         </div>
       </header>
 
@@ -157,14 +335,19 @@
         <form id="form-leave-request">
           <div class="form-grid">
             <!-- Profil Pemohon Ringkas -->
-            <div class="form-group col-span-2" style="background: var(--bg-app); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
-              <div style="font-size: 0.8rem; color: var(--text-muted);">Pemohon: <strong id="modal-emp-name" style="color: var(--text-main);">Budi Santoso</strong> (NIK: <span id="modal-emp-nik">ST-2024-0891</span>)</div>
-              <div style="font-size: 0.75rem; color: var(--brand-primary); font-weight: 600;" id="modal-emp-dept">Divisi Biskuit & Wafer - Pabrik Sidoarjo</div>
+            <div class="form-group col-span-2"
+              style="background: var(--bg-app); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Pemohon: <strong id="modal-emp-name"
+                  style="color: var(--text-main);">Budi Santoso</strong> (NIK: <span
+                  id="modal-emp-nik">ST-2024-0891</span>)</div>
+              <div style="font-size: 0.75rem; color: var(--brand-primary); font-weight: 600;" id="modal-emp-dept">Divisi
+                Biskuit & Wafer - Pabrik Sidoarjo</div>
             </div>
 
             <!-- Jenis Izin -->
             <div class="form-group col-span-2">
-              <label class="form-label" for="input-leave-type">Jenis Permohonan Izin / Cuti <span class="required">*</span></label>
+              <label class="form-label" for="input-leave-type">Jenis Permohonan Izin / Cuti <span
+                  class="required">*</span></label>
               <select class="form-control" id="input-leave-type" required>
                 <option value="cuti_tahunan">Cuti Tahunan (Potong Saldo Cuti)</option>
                 <option value="izin_sakit">Izin Sakit (Wajib Surat Keterangan Dokter)</option>
@@ -188,22 +371,28 @@
 
             <!-- Perhitungan Hari Kerja Otomatis -->
             <div class="form-group col-span-2">
-              <div style="background: var(--brand-primary-light); padding: 0.75rem 1rem; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.82rem; color: var(--brand-primary); font-weight: 600;">Total Hari Kerja (Tanpa Hari Minggu):</span>
-                <strong style="font-size: 1.1rem; color: var(--brand-primary);" id="label-calculated-days">1 Hari</strong>
+              <div
+                style="background: var(--brand-primary-light); padding: 0.75rem 1rem; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.82rem; color: var(--brand-primary); font-weight: 600;">Total Hari Kerja (Tanpa
+                  Hari Minggu):</span>
+                <strong style="font-size: 1.1rem; color: var(--brand-primary);" id="label-calculated-days">1
+                  Hari</strong>
               </div>
             </div>
 
             <!-- Alasan Pengajuan -->
             <div class="form-group col-span-2">
-              <label class="form-label" for="input-reason">Alasan / Keterangan Keperluan <span class="required">*</span></label>
-              <textarea class="form-control" id="input-reason" placeholder="Contoh: Mengurus keperluan keluarga mendesak / kontrol kesehatan..." required></textarea>
+              <label class="form-label" for="input-reason">Alasan / Keterangan Keperluan <span
+                  class="required">*</span></label>
+              <textarea class="form-control" id="input-reason"
+                placeholder="Contoh: Mengurus keperluan keluarga mendesak / kontrol kesehatan..." required></textarea>
             </div>
 
             <!-- Pelimpahan Tugas (Handover) -->
             <div class="form-group">
               <label class="form-label" for="input-handover">Pelimpahan Tugas (Rekan Kerja Shift)</label>
-              <input type="text" class="form-control" id="input-handover" placeholder="Nama rekan yang menggantikan tugas">
+              <input type="text" class="form-control" id="input-handover"
+                placeholder="Nama rekan yang menggantikan tugas">
             </div>
 
             <!-- Kontak Darurat -->
@@ -216,9 +405,14 @@
             <div class="form-group col-span-2" id="attachment-field-group">
               <label class="form-label">Upload Berkas Pendukung / Surat Dokter (Opsional/Wajib untuk Sakit)</label>
               <div class="file-dropzone" id="file-dropzone-box">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
                 <div style="font-size: 0.85rem; font-weight: 600;">Klik atau seret dokumen ke sini (PDF, JPG, PNG)</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted);" id="file-selected-name">Maksimal ukuran file 5 MB</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);" id="file-selected-name">Maksimal ukuran file
+                  5 MB</div>
               </div>
               <input type="file" id="real-file-input" style="display: none;" accept=".pdf,.jpg,.jpeg,.png">
             </div>
@@ -234,7 +428,8 @@
                   </button>
                 </div>
               </div>
-              <span class="input-helper">Goreskan tanda tangan Anda pada area kanvas di atas menggunakan mouse atau layar sentuh.</span>
+              <span class="input-helper">Goreskan tanda tangan Anda pada area kanvas di atas menggunakan mouse atau
+                layar sentuh.</span>
             </div>
           </div>
         </form>
@@ -242,7 +437,10 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="btn-cancel-request">Batal</button>
         <button type="submit" form="form-leave-request" class="btn btn-primary" id="btn-submit-request">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
           Kirim Pengajuan Izin
         </button>
       </div>
@@ -284,14 +482,19 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="btn-close-letter-footer">Tutup</button>
         <button type="button" class="btn btn-primary" id="btn-print-official-letter">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
           Cetak / Simpan PDF
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Application Main Script -->
-  <script type="module" src="js/app.js"></script>
+  <!-- Application Main Script (Bundle for universal compatibility) -->
+  <script src="js/bundle.js"></script>
 </body>
+
 </html>

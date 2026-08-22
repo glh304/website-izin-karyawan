@@ -17,6 +17,7 @@ let currentActiveView = 'dashboard';
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initAuth();
   initNavigation();
   initRoleSwitcher();
   initModals();
@@ -26,6 +27,95 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial view render
   renderCurrentView();
 });
+
+/* ==========================================================================
+   AUTHENTICATION & LOGIN SYSTEM
+   ========================================================================== */
+function initAuth() {
+  const loginScreen = document.getElementById('login-screen');
+  const appContainer = document.getElementById('app-container');
+  const formLogin = document.getElementById('form-login');
+  const passToggleBtn = document.getElementById('btn-toggle-password');
+  const passInput = document.getElementById('login-password');
+  const passIconEye = document.getElementById('pass-icon-eye');
+
+  function updateAuthDisplay() {
+    if (state.isLoggedIn) {
+      loginScreen?.classList.add('hidden');
+      if (appContainer) appContainer.style.display = 'flex';
+      renderCurrentView();
+    } else {
+      loginScreen?.classList.remove('hidden');
+      if (appContainer) appContainer.style.display = 'none';
+    }
+  }
+
+  // Toggle password visibility
+  passToggleBtn?.addEventListener('click', () => {
+    if (!passInput) return;
+    const isPassword = passInput.type === 'password';
+    passInput.type = isPassword ? 'text' : 'password';
+    if (passIconEye) {
+      if (isPassword) {
+        passIconEye.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+      } else {
+        passIconEye.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+      }
+    }
+  });
+
+  // Login form submit
+  formLogin?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const identifier = document.getElementById('login-identifier')?.value;
+    const password = passInput?.value;
+
+    const res = state.login(identifier, password);
+    if (res.success) {
+      updateAuthDisplay();
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+      }
+      showToast('Login Berhasil', `Selamat datang kembali, <strong>${res.employee.name}</strong> (${res.employee.jobTitle}).`, 'success');
+    } else {
+      showToast('Gagal Masuk', res.message, 'danger');
+    }
+  });
+
+  // Quick Demo Account Buttons
+  document.querySelectorAll('.demo-account-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const nik = btn.dataset.nik;
+      const res = state.login(nik, '123456');
+      if (res.success) {
+        updateAuthDisplay();
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+        }
+        showToast('Login Demo Berhasil', `Masuk sebagai <strong>${res.employee.name}</strong> [${res.employee.role}].`, 'success');
+      }
+    });
+  });
+
+  // Logout Handlers
+  const handleLogout = () => {
+    if (confirm('Apakah Anda yakin ingin keluar dari Portal E-Izin PT Siantar Top Tbk?')) {
+      state.logout();
+      updateAuthDisplay();
+      showToast('Logout Berhasil', 'Anda telah keluar dari sesi kerja.', 'info');
+    }
+  };
+
+  document.getElementById('btn-sidebar-logout')?.addEventListener('click', handleLogout);
+  document.getElementById('btn-header-logout')?.addEventListener('click', handleLogout);
+
+  // Forgot password help
+  document.getElementById('link-forgot-pass')?.addEventListener('click', () => {
+    alert('Informasi Pemulihan Akun:\nSilakan hubungi IT Helpdesk / HRD PT Siantar Top Tbk di ext: 104 atau kirim email ke it.support@siantartop.co.id untuk reset kata sandi.');
+  });
+
+  updateAuthDisplay();
+}
 
 /* ==========================================================================
    THEME TOGGLE
