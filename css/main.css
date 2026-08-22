@@ -993,28 +993,54 @@ button {
   gap: 0.4rem;
 }
 
+.mobile-brand-header {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .login-screen-wrapper {
-    flex-direction: column;
-    overflow-y: auto;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 1.5rem 1rem !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background-color: var(--bg-app) !important;
   }
 
   .login-hero-panel {
-    padding: 2rem 1.5rem;
-    flex: none;
-  }
-
-  .hero-headline {
-    font-size: 1.6rem;
-  }
-
-  .hero-subheadline, .hero-features-list {
-    display: none;
+    display: none !important;
   }
 
   .login-form-panel {
-    padding: 2rem 1.5rem;
-    flex: 1;
+    width: 100% !important;
+    max-width: 440px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex: none !important;
+  }
+
+  .login-card {
+    background-color: var(--bg-surface) !important;
+    padding: 1.75rem 1.25rem !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border: 1px solid var(--border-light) !important;
+    width: 100% !important;
+  }
+
+  .mobile-brand-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.85rem !important;
+    margin-bottom: 1.25rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 1px solid var(--border-light) !important;
   }
 }
 
