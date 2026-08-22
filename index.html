@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Izin PT Siantar Top Tbk | Portal Perizinan & Cuti Karyawan Terpadu</title>
+  <meta name="description" content="Sistem Informasi Manajemen Perizinan dan Cuti Karyawan Mandiri PT Siantar Top Tbk. Layanan pengajuan cuti tahunan, sakit, dispensasi pabrik, dan verifikasi digital.">
+
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23d32f2f'/><text x='50%' y='65%' font-family='sans-serif' font-weight='800' font-size='50' fill='white' text-anchor='middle'>ST</text></svg>">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/print.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Chart.js & Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Backdrop for Mobile Sidebar -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-badge">ST</div>
+        <div class="brand-info">
+          <span class="brand-name">SIANTAR TOP</span>
+          <span class="brand-sub">E-IZIN PORTAL</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Menu Utama</div>
+        <a href="#dashboard" class="nav-item active" id="nav-dashboard">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#pengajuan" class="nav-item" id="nav-pengajuan">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          <span>Ajukan Izin Baru</span>
+        </a>
+
+        <a href="#riwayat" class="nav-item" id="nav-riwayat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>Riwayat Pengajuan</span>
+        </a>
+
+        <a href="#kalender" class="nav-item" id="nav-kalender">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <span>Kalender Tim</span>
+        </a>
+
+        <div class="nav-section-title" id="nav-title-admin">Otorisasi & Manajemen</div>
+        <a href="#persetujuan" class="nav-item" id="nav-persetujuan">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          <span>Persetujuan SPV</span>
+          <span class="nav-badge" id="badge-count-spv">0</span>
+        </a>
+
+        <a href="#hrd" class="nav-item" id="nav-hrd">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Manajemen HRD</span>
+          <span class="nav-badge" id="badge-count-hrd">0</span>
+        </a>
+
+        <div class="nav-section-title">Informasi</div>
+        <a href="#kebijakan" class="nav-item" id="nav-kebijakan">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span>Kebijakan Cuti</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-quick-profile">
+          <div class="user-avatar" id="sidebar-user-avatar">B</div>
+          <div class="user-details">
+            <span class="user-name" id="sidebar-user-name">Budi Santoso</span>
+            <span class="user-role-label" id="sidebar-user-role">Karyawan (Operator)</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Top Sticky Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="menu-toggle-btn" id="btn-toggle-menu" aria-label="Toggle Navigation">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="header-title-box">
+            <h1 class="page-title" id="page-heading">Dashboard Perizinan</h1>
+            <span class="page-subtitle" id="page-subheading">PT Siantar Top Tbk - Unit Pabrik Waru Sidoarjo</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Role Switcher Pill Container -->
+          <div class="role-switcher-container">
+            <span class="role-switcher-label">Mode Role:</span>
+            <button class="role-btn active" data-role="Karyawan" id="role-btn-emp">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <span class="role-text">Karyawan</span>
+            </button>
+            <button class="role-btn" data-role="Supervisor" id="role-btn-spv">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+              <span class="role-text">Supervisor</span>
+            </button>
+            <button class="role-btn" data-role="HRD" id="role-btn-hrd">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span class="role-text">HRD Admin</span>
+            </button>
+          </div>
+
+          <!-- Theme Toggle -->
+          <button class="icon-button" id="btn-theme-toggle" title="Ganti Mode Gelap / Terang">
+            <svg id="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+
+          <!-- Reset Data State Button -->
+          <button class="icon-button" id="btn-reset-state" title="Reset Data Awal Simulasi">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Body Container -->
+      <main class="content-body" id="main-content-view">
+        <!-- Rendered dynamically by active view -->
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- MODAL: Pengajuan Izin Baru -->
+  <div class="modal-overlay" id="modal-new-request">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Formulir Pengajuan Izin & Cuti</h3>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">PT Siantar Top Tbk - Employee Self Service</span>
+        </div>
+        <button class="modal-close-btn" id="btn-close-modal-request">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-leave-request">
+          <div class="form-grid">
+            <!-- Profil Pemohon Ringkas -->
+            <div class="form-group col-span-2" style="background: var(--bg-app); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Pemohon: <strong id="modal-emp-name" style="color: var(--text-main);">Budi Santoso</strong> (NIK: <span id="modal-emp-nik">ST-2024-0891</span>)</div>
+              <div style="font-size: 0.75rem; color: var(--brand-primary); font-weight: 600;" id="modal-emp-dept">Divisi Biskuit & Wafer - Pabrik Sidoarjo</div>
+            </div>
+
+            <!-- Jenis Izin -->
+            <div class="form-group col-span-2">
+              <label class="form-label" for="input-leave-type">Jenis Permohonan Izin / Cuti <span class="required">*</span></label>
+              <select class="form-control" id="input-leave-type" required>
+                <option value="cuti_tahunan">Cuti Tahunan (Potong Saldo Cuti)</option>
+                <option value="izin_sakit">Izin Sakit (Wajib Surat Keterangan Dokter)</option>
+                <option value="izin_penting">Izin Kepentingan Pribadi / Mendesak</option>
+                <option value="cuti_melahirkan">Cuti Melahirkan / Maternitas (90 Hari)</option>
+                <option value="izin_khusus">Izin Khusus (Menikah 3 Hari / Duka 2 Hari)</option>
+                <option value="dispensasi">Dispensasi Pelatihan / Tugas Dinas Luar</option>
+              </select>
+            </div>
+
+            <!-- Tanggal Mulai & Tanggal Selesai -->
+            <div class="form-group">
+              <label class="form-label" for="input-start-date">Tanggal Mulai <span class="required">*</span></label>
+              <input type="date" class="form-control" id="input-start-date" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-end-date">Tanggal Selesai <span class="required">*</span></label>
+              <input type="date" class="form-control" id="input-end-date" required>
+            </div>
+
+            <!-- Perhitungan Hari Kerja Otomatis -->
+            <div class="form-group col-span-2">
+              <div style="background: var(--brand-primary-light); padding: 0.75rem 1rem; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.82rem; color: var(--brand-primary); font-weight: 600;">Total Hari Kerja (Tanpa Hari Minggu):</span>
+                <strong style="font-size: 1.1rem; color: var(--brand-primary);" id="label-calculated-days">1 Hari</strong>
+              </div>
+            </div>
+
+            <!-- Alasan Pengajuan -->
+            <div class="form-group col-span-2">
+              <label class="form-label" for="input-reason">Alasan / Keterangan Keperluan <span class="required">*</span></label>
+              <textarea class="form-control" id="input-reason" placeholder="Contoh: Mengurus keperluan keluarga mendesak / kontrol kesehatan..." required></textarea>
+            </div>
+
+            <!-- Pelimpahan Tugas (Handover) -->
+            <div class="form-group">
+              <label class="form-label" for="input-handover">Pelimpahan Tugas (Rekan Kerja Shift)</label>
+              <input type="text" class="form-control" id="input-handover" placeholder="Nama rekan yang menggantikan tugas">
+            </div>
+
+            <!-- Kontak Darurat -->
+            <div class="form-group">
+              <label class="form-label" for="input-emergency">Nomor Kontak Selama Izin</label>
+              <input type="text" class="form-control" id="input-emergency" placeholder="Contoh: 0812-xxxx-xxxx">
+            </div>
+
+            <!-- Upload Lampiran / Surat Dokter -->
+            <div class="form-group col-span-2" id="attachment-field-group">
+              <label class="form-label">Upload Berkas Pendukung / Surat Dokter (Opsional/Wajib untuk Sakit)</label>
+              <div class="file-dropzone" id="file-dropzone-box">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <div style="font-size: 0.85rem; font-weight: 600;">Klik atau seret dokumen ke sini (PDF, JPG, PNG)</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);" id="file-selected-name">Maksimal ukuran file 5 MB</div>
+              </div>
+              <input type="file" id="real-file-input" style="display: none;" accept=".pdf,.jpg,.jpeg,.png">
+            </div>
+
+            <!-- Tanda Tangan Digital -->
+            <div class="form-group col-span-2">
+              <label class="form-label">Tanda Tangan Digital Karyawan <span class="required">*</span></label>
+              <div class="signature-wrapper">
+                <canvas id="signature-pad-canvas" class="signature-canvas"></canvas>
+                <div class="signature-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-signature">
+                    Bersihkan TTD
+                  </button>
+                </div>
+              </div>
+              <span class="input-helper">Goreskan tanda tangan Anda pada area kanvas di atas menggunakan mouse atau layar sentuh.</span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-cancel-request">Batal</button>
+        <button type="submit" form="form-leave-request" class="btn btn-primary" id="btn-submit-request">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          Kirim Pengajuan Izin
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Lacak Status Pengajuan (Tracking Modal) -->
+  <div class="modal-overlay" id="modal-tracking">
+    <div class="modal-container" style="max-width: 600px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="track-modal-title">Tracking Status Pengajuan</h3>
+          <span style="font-size: 0.78rem; color: var(--text-muted);" id="track-modal-subtitle">No. Dokumen: -</span>
+        </div>
+        <button class="modal-close-btn" id="btn-close-modal-tracking">&times;</button>
+      </div>
+      <div class="modal-body" id="track-modal-body">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-close-track-footer">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Preview Surat Izin Resmi & Cetak PDF -->
+  <div class="modal-overlay" id="modal-letter">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Surat Izin Resmi PT Siantar Top Tbk</h3>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Dokumen Resmi Berstempel Elektronik</span>
+        </div>
+        <button class="modal-close-btn" id="btn-close-modal-letter">&times;</button>
+      </div>
+      <div class="modal-body" id="letter-modal-body" style="background: #e5e7eb; padding: 1.5rem 1rem;">
+        <!-- Official Letter Preview Container -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-close-letter-footer">Tutup</button>
+        <button type="button" class="btn btn-primary" id="btn-print-official-letter">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / Simpan PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Main Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
